@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTrack</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h2><i class="fa-solid fa-chart-pie"></i> ProTrack</h2>
+        <p>Your Daily Analytics</p>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-box productive">
+            <span id="prod-time">0m</span>
+            <small>Productive</small>
+        </div>
+        <div class="chart-box unproductive">
+            <span id="unprod-time">0m</span>
+            <small>Distraction</small>
+        </div>
+    </div>
+
+    <h3>Site Breakdown</h3>
+    <div id="site-list" class="site-list">
+        <!-- List injected by JS -->
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

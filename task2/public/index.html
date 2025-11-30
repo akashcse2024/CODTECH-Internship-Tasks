@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProChat - Modern Messenger</title>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div class="join-screen" id="join-screen">
+        <h2>Join ProChat</h2>
+        <p>Enter your nickname to start chatting</p>
+        <input type="text" id="username" placeholder="e.g. Stark, Wayne..." autocomplete="off">
+        <button class="btn-grad" id="join-btn">Start Chatting</button>
+    </div>
+
+    <!-- CHAT SCREEN -->
+    <div class="chat-screen" id="chat-screen">
+        <header class="chat-header">
+            <div class="brand">
+                <i class="fa-brands fa-rocketchat"></i> ProChat
+            </div>
+            <button class="leave-btn" id="leave-btn">Exit</button>
+        </header>
+        
+        <div class="messages-container" id="messages-container">
+            <div class="system-msg">Welcome to the secure room</div>
+        </div>
+
+        <form class="chat-input-area" id="chat-form">
+            <input type="text" id="msg-input" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <!-- Socket.io Library (Auto-served by server) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Your Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>

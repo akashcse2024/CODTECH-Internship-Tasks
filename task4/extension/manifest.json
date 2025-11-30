@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "ProTrack - Productivity Analytics",
+  "version": "1.0",
+  "description": "Tracks time spent on websites and classifies productivity.",
+  "permissions": ["tabs", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "clock.webp"
+  },
+  "icons": {
+    "128": "clock.webp"
+  }
+}

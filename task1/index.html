@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast Pro - AI Weather Dashboard</title>
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS Link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo"><i class="fa-solid fa-cloud-sun-rain"></i> SkyCast AI</div>
+        <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="nav-btn active" data-target="home">Home</a></li>
+            <li><a href="#" class="nav-btn" data-target="map">Live Map</a></li>
+            <li><a href="#" class="nav-btn" data-target="news">News & Alerts</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- === HOME SECTION === -->
+        <section id="home" class="active-section">
+            <div class="home-grid">
+                
+                <!-- Left: Weather Display -->
+                <div class="weather-card">
+                    <div class="search-container">
+                        <input type="text" id="cityInput" placeholder="Search city (e.g., Chennai, London)...">
+                        <button id="searchBtn"><i class="fa-solid fa-search"></i></button>
+                    </div>
+
+                    <div class="loader" id="loader"></div>
+                    <div id="errorMsg" class="error-message"></div>
+
+                    <div class="weather-display" id="weatherDisplay">
+                        <h2 id="cityName">--</h2>
+                        <p id="currDate" class="date-text">--</p>
+                        
+                        <img id="weatherIcon" class="weather-icon-large" src="" alt="">
+                        <h1 id="tempVal">--°C</h1>
+                        <p id="weatherDesc" class="desc-text">--</p>
+
+                        <div class="weather-metrics">
+                            <div class="metric-box">
+                                <i class="fa-solid fa-droplet"></i>
+                                <p>Humidity</p>
+                                <h4 id="humidityVal">--%</h4>
+                            </div>
+                            <div class="metric-box">
+                                <i class="fa-solid fa-wind"></i>
+                                <p>Wind</p>
+                                <h4 id="windVal">-- km/h</h4>
+                            </div>
+                            <div class="metric-box">
+                                <i class="fa-solid fa-gauge"></i>
+                                <p>Pressure</p>
+                                <h4 id="pressureVal">-- hPa</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Tamil Nadu Quick Links -->
+                <div class="quick-links-card">
+                    <h3><i class="fa-solid fa-map-pin" style="color: var(--primary);"></i> Popular Districts</h3>
+                    <p class="sub-text">Quick check for Tamil Nadu</p>
+                    <div class="chips-container" id="tnChips">
+                        <!-- Chips injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast -->
+            <div class="forecast-container" id="forecastContainer">
+                <h3 style="margin-bottom: 20px;">5-Day Forecast</h3>
+                <div class="forecast-scroll" id="forecastScroll">
+                    <!-- Items injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- === MAP SECTION === -->
+        <section id="map">
+            <div class="full-map-wrapper">
+                <div id="mapObj"></div>
+                <div class="map-overlay-info">
+                    <i class="fa-solid fa-hand-pointer"></i> Click anywhere on the map to see the weather there!
+                </div>
+            </div>
+        </section>
+
+        <!-- === NEWS SECTION === -->
+        <section id="news">
+            <div class="news-grid">
+                <div class="weather-card news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1514632595-4944383f27f4?w=500');"></div>
+                    <h4>Monsoon Watch 2024</h4>
+                    <p>Heavy rains predicted for coastal districts in the upcoming week. Red alert issued for localized areas.</p>
+                </div>
+                <div class="weather-card news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1504370805625-d32c54b16100?w=500');"></div>
+                    <h4>Heatwave Advisory</h4>
+                    <p>Interior districts may experience temperatures above 40°C. Stay hydrated and avoid noon sun.</p>
+                </div>
+                <div class="weather-card news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1562664348-2182b77946c6?w=500');"></div>
+                    <h4>Farmers' Bulletin</h4>
+                    <p>Ideal conditions for sowing Kuruvai crops in the delta region as reservoir levels stabilize.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FLOATING AI CHATBOT -->
+    <div class="chat-btn" id="toggleChatBtn">
+        <i class="fa-solid fa-robot"></i>
+    </div>
+
+    <div class="chat-interface" id="chatBox">
+        <div class="chat-header">
+            <span><i class="fa-solid fa-microchip"></i> Weather AI</span>
+            <i class="fa-solid fa-times" id="closeChatBtn" style="cursor: pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chatOutput">
+            <div class="message bot-msg">Hi! I am your Weather AI. Ask me things like:<br><br>"Is it raining in Chennai?"<br>"Temperature in Madurai"<br>"Wind speed in London"</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Ask about climate...">
+            <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+</html>
